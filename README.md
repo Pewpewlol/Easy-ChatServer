@@ -15,4 +15,4 @@ After connecting with a client the server.Receive() Method starts right after. S
 
 Sending data:
 
-server.send();
+server.Send();
