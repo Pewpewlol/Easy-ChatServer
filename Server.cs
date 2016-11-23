@@ -15,7 +15,7 @@ namespace EasyServer
         // Ein Server der mit der Task Libary arbeitet.
 
         public int port { get; set; } = 40300;
-        public string IP4s { get; private set; } = "192.168.0.20";
+        public string IP4s { get; private set; } 
         public byte[] buffer { get; set; } = new byte[1024];
         private int byteAnzahl { get; set; }
         public Socket connectionSocket { get; set; }
@@ -27,13 +27,26 @@ namespace EasyServer
         IPAddress IP4;
         IPEndPoint IPE;
         TcpListener listener;
-
+        private static string GetLocalIpAdresse()
+        {
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (var ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    return ip.ToString();
+                }
+            }
+            throw new Exception("Local IP Address Not Found!");
+            
+        }
 
 
         public void Start()
         {
 
             informationMessage = "Beginne";
+            IP4s = GetLocalIpAdresse();
             IP4 = IPAddress.Parse(IP4s);
             IPE = new IPEndPoint(IP4, port);
             listener = new TcpListener(IPE);
