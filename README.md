@@ -15,4 +15,5 @@ After connecting with a client the server.Receive() Method starts right after. S
 
 Sending data:
 
-server.Send();
+string message = "";
+server.Send(message);
